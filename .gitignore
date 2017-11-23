@@ -50,3 +50,7 @@ coverage.xml
 
 # Sphinx documentation
 docs/_build/
+
+*.txt
+*.mp3
+
