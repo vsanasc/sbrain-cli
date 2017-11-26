@@ -17,7 +17,7 @@ setup(
     description='Creates a video with text and pronunciation',
     long_description=open('README.md').read(),
     install_requires=[
-        "gTTS"
+        'gTTS'
     ],
     classifiers=[
           'Environment :: Console',
