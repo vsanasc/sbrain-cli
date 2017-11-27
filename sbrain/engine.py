@@ -36,8 +36,9 @@ class Builder():
         # initializers
         self.ffmpeg = FFCommandGenerator()
         self.base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+        self.base_lib = os.path.dirname(os.path.abspath(__file__))
         self.temp_session_dir = '{}/temp-session'.format(self.base_dir)
-        self.temp_final_dir = '{}/phrases/'.format(self.base_dir)
+        self.phrases_dir = '{}/phrases/'.format(self.base_dir)
         self.phrases = []
         self.files = []
 
@@ -46,12 +47,12 @@ class Builder():
         if os.path.exists(self.temp_session_dir):
             shutil.rmtree(self.temp_session_dir)
 
-        if os.path.exists(self.temp_final_dir):
+        if os.path.exists(self.phrases_dir):
             raise ValueError('Already phrases folder')
             sys.exit(1)
 
         os.makedirs(self.temp_session_dir)
-        os.makedirs(self.temp_final_dir)
+        os.makedirs(self.phrases_dir)
 
 
         self._get_phrases_from_file(self.file)
@@ -79,7 +80,7 @@ class Builder():
 
         session_files = []
 
-        phraseFile = '{}/{}.mp3'.format(self.temp_final_dir, index)
+        phraseFile = '{}/{}.mp3'.format(self.phrases_dir, index)
 
         originalFile = '{}/temp-session/original-{}.mp3'.format(self.base_dir, index)
         tts = gTTS(text=phrase, lang=self.language)
@@ -95,11 +96,11 @@ class Builder():
 
             for x in range(self.translation_repeat):
                 session_files.append(translateFile)
-                session_files.append('{}/2s.mp3'.format(self.base_dir))
+                session_files.append('{}/audios/2s.mp3'.format(self.base_lib))
 
         for x in range(self.repeat):
             session_files.append(originalFile)
-            session_files.append('{}/4s.mp3'.format(self.base_dir))
+            session_files.append('{}/audios/4s.mp3'.format(self.base_lib))
 
 
         ffmpeg_session = FFCommandGenerator()
