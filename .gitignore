@@ -56,4 +56,5 @@ docs/_build/
 phrases/
 .DS_Store
 *.txt
+/*.mp3
 
